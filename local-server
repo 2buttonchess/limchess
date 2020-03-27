@@ -1,0 +1,9 @@
+#! /bin/sh
+
+if command -v python3 >/dev/null; then
+  exec python3 -m http.server
+elif command -v python >/dev/null; then
+  exec python -m SimpleHTTPServer 8000
+else
+  printf '%s\n' 'No suitable python found for starting a local server'
+fi

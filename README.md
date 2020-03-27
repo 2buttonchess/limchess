@@ -15,3 +15,11 @@ Built by [@benknoble](https://github.com/benknoble) and
 - [chessboard.js](https://chessboardjs.com) [MIT](./LICENSE-chessboard.js):
   `js/chessboard-1.0.0.*`,
   `img/chesspieces/*`, `css/chessboard-1.0.0.*`
+
+## Local development
+
+You'll need to spin up a `localhost` server to serve the content if you want to
+view the webpage.
+
+A sh script that automatically chooses the correct python server to run is
+provided in `local-server`.
