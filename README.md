@@ -13,3 +13,11 @@ Built by [@benknoble](https://github.com/benknoble) and
 We make use of [stockfish.js](https://github.com/niklasf/stockfish.js), a
 JS/WASM port of the stockfish engine (the original is covered under the GPL; see
 [stockfish.js/Copying.txt](https://github.com/niklasf/stockfish.js/Copying.txt)
+
+## Local development
+
+You'll need to spin up a `localhost` server to serve the content if you want to
+view the webpage.
+
+A sh script that automatically chooses the correct python server to run is
+provided in `local-server`.
