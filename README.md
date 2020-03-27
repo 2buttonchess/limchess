@@ -7,3 +7,9 @@ Limited input assisted chess for the web
 Built by [@benknoble](https://github.com/benknoble) and
 [@zlintz14](https://github.com/zlintz14) for
 [@gbishop](https://github.com/gbishop)'s Comp 580: Enabling Technology class.
+
+## Components
+
+We make use of [stockfish.js](https://github.com/niklasf/stockfish.js), a
+JS/WASM port of the stockfish engine (the original is covered under the GPL; see
+[stockfish.js/Copying.txt](https://github.com/niklasf/stockfish.js/Copying.txt)
