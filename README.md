@@ -15,6 +15,7 @@ Built by [@benknoble](https://github.com/benknoble) and
 - [chessboard.js](https://chessboardjs.com) [MIT](./LICENSE-chessboard.js):
   `js/chessboard-1.0.0.*`,
   `img/chesspieces/*`, `css/chessboard-1.0.0.*`
+  - depends on [jquery](https://jquery.com): `js/jquery-3.4.1.min.js`
 
 ## Local development
 
