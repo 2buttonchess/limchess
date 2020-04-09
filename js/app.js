@@ -72,8 +72,9 @@ $(document).ready(() => {
     }
     var piece = event.currentTarget;
     var pieceName = piece.getAttribute('data-piece')
-   // square is always third class name and square number (a8, b5, c4, etc) is the last 2 chars of class name
+
     var squareDiv = $(this).parent().get(0)
+    // square is always third class name and square number (a8, b5, c4, etc) is the last 2 chars of class name
     var clickedSquare = squareDiv.classList[2].substring(7, 9)
     $(squareDiv).addClass('highlight2-9c5d2')
     highlightedSquare = squareDiv
