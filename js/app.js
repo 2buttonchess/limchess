@@ -67,6 +67,8 @@ $(document).ready(() => {
   }
   const board = Chessboard('board', config)
 
+  $(window).resize(board.resize)
+
   $('*[class^="piece"]').click(function() {
     if(highlightedSquare != null) {
       $(highlightedSquare).removeClass('highlight2-9c5d2')
