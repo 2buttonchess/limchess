@@ -29,6 +29,7 @@ function onClickSquare (square, piece) {
 
   if(moves.length == 0) {
     $(highlightedSquare).removeClass('highlight2-9c5d2')
+    clickedSquareName = ""
     alert("No valid moves")
     return
   } 
