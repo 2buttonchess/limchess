@@ -1,6 +1,6 @@
 var game = new Chess()
-var whiteSquareGrey = '#a9a9a9'
-var blackSquareGrey = '#696969'
+const whiteSquareGrey = '#a9a9a9'
+const blackSquareGrey = '#696969'
 var highlightedSquare = null
 var clickedSquareName = ""
 
@@ -9,12 +9,12 @@ function removeGreySquares () {
 }
 
 function greySquare (square) {
-  var $square = $('#board .square-' + square)
+  const $square = $('#board .square-' + square)
 
-  var background = whiteSquareGrey
-  if ($square.hasClass('black-3c85d')) {
-    background = blackSquareGrey
-  }
+  const background =
+    $square.hasClass('black-3c85d')
+    ? whiteSquareGrey
+    : blackSquareGrey
 
   $square.css('background', background)
 }
@@ -22,7 +22,7 @@ function greySquare (square) {
 function onClickSquare (square, piece) {
   removeGreySquares()
   // get list of possible moves for this square
-  var moves = game.moves({
+  const moves = game.moves({
     square: square,
     verbose: true
   })
@@ -32,20 +32,20 @@ function onClickSquare (square, piece) {
     clickedSquareName = ""
     alert("No valid moves")
     return
-  } 
+  }
 
   // highlight the square they moused over
   greySquare(square)
 
   // highlight the possible squares for this piece
-  for (var i = 0; i < moves.length; i++) {
-    greySquare(moves[i].to)
+  for (const move of moves) {
+    greySquare(move.to)
   }
 }
 
 function onMouseoverSquare(square, piece) {
   // get list of possible moves for this square
-  var moves = game.moves({
+  const moves = game.moves({
     square: square,
     verbose: true
   })
@@ -60,7 +60,7 @@ function onMouseoutSquare(square, piece) {
 }
 
 $(document).ready(() => {
-  var config = {
+  const config = {
     position: 'start',
     onMouseoutSquare: onMouseoutSquare,
     onMouseoverSquare: onMouseoverSquare
@@ -71,16 +71,16 @@ $(document).ready(() => {
     if(highlightedSquare != null) {
       $(highlightedSquare).removeClass('highlight2-9c5d2')
     }
-    var piece = event.currentTarget;
-    var pieceName = piece.getAttribute('data-piece')
+    const piece = event.currentTarget;
+    const pieceName = piece.getAttribute('data-piece')
 
-    var squareDiv = $(this).parent().get(0)
+    const squareDiv = $(this).parent().get(0)
     // square is always third class name and square number (a8, b5, c4, etc) is the last 2 chars of class name
-    var clickedSquare = squareDiv.classList[2].substring(7, 9)
+    const clickedSquare = squareDiv.classList[2].substring(7, 9)
     $(squareDiv).addClass('highlight2-9c5d2')
     highlightedSquare = squareDiv
     clickedSquareName = clickedSquare
     onClickSquare(clickedSquare, pieceName)
   })
-  
+
 })
