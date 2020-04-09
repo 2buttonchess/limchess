@@ -83,4 +83,9 @@ $(document).ready(() => {
     onClickSquare(clickedSquare, pieceName)
   })
 
+  $("#newGameBtn").on('click', () => {
+    board.start()
+    game.reset()
+  })
+
 })
