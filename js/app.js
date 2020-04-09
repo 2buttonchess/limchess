@@ -3,6 +3,7 @@ const whiteSquareGrey = '#a9a9a9'
 const blackSquareGrey = '#696969'
 var highlightedSquare = null
 var clickedSquareName = ""
+const hiClass = 'highlight2-9c5d2'
 
 function removeGreySquares () {
   $('#board .square-55d63').css('background', '')
@@ -28,7 +29,7 @@ function onClickSquare (square, piece) {
   })
 
   if(moves.length == 0) {
-    $(highlightedSquare).removeClass('highlight2-9c5d2')
+    $(highlightedSquare).removeClass(hiClass)
     clickedSquareName = ""
     alert("No valid moves")
     return
@@ -50,13 +51,13 @@ function onMouseoverSquare(square, piece) {
     verbose: true
   })
 
-  $('.square-' + square).addClass('highlight2-9c5d2')
+  $('.square-' + square).addClass(hiClass)
 
 }
 
 function onMouseoutSquare(square, piece) {
   if(square != clickedSquareName)
-    $('.square-' + square).removeClass('highlight2-9c5d2')
+    $('.square-' + square).removeClass(hiClass)
 }
 
 $(document).ready(() => {
@@ -71,7 +72,7 @@ $(document).ready(() => {
 
   $('*[class^="piece"]').click(function() {
     if(highlightedSquare != null) {
-      $(highlightedSquare).removeClass('highlight2-9c5d2')
+      $(highlightedSquare).removeClass(hiClass)
     }
     const piece = event.currentTarget;
     const pieceName = piece.getAttribute('data-piece')
@@ -79,7 +80,7 @@ $(document).ready(() => {
     const squareDiv = $(this).parent().get(0)
     // square is always third class name and square number (a8, b5, c4, etc) is the last 2 chars of class name
     const clickedSquare = squareDiv.classList[2].substring(7, 9)
-    $(squareDiv).addClass('highlight2-9c5d2')
+    $(squareDiv).addClass(hiClass)
     highlightedSquare = squareDiv
     clickedSquareName = clickedSquare
     onClickSquare(clickedSquare, pieceName)
