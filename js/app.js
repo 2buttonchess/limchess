@@ -50,6 +50,16 @@ $(document).ready(() => {
     $('.square-' + square).addClass(hiClass)
   }
 
+  const syncGameBoard = () => board.position(game.fen())
+
+  const makeRandomMove = () => {
+    if (game.game_over()) return
+    const moves = game.moves()
+    const moveIdx = Math.floor(Math.random() * moves.length)
+    game.move(moves[moveIdx])
+    syncGameBoard()
+  }
+
   const game = new Chess()
 
   const config = {
@@ -81,6 +91,16 @@ $(document).ready(() => {
   $("#newGameBtn").on('click', () => {
     board.start()
     game.reset()
+  })
+
+  $("#cycleMoveBtn").on('click', () => {
+    // show next move
+  })
+
+  $("#acceptMoveBtn").on('click', () => {
+    // make player move
+    // computer move
+    makeRandomMove()
   })
 
 })
