@@ -19,29 +19,32 @@ function greySquare (square) {
   $square.css('background', background)
 }
 
+const makeMoveMaker = (game, board) => move => {
+  game.move(move)
+  board.position(game.fen())
+}
+
+const getRandomMove = game => {
+  if (game.game_over()) return
+  const moves = game.moves()
+  const moveIdx = Math.floor(Math.random() * moves.length)
+  return moves[moveIdx]
+}
+
+const getCpuMove = getRandomMove
+const getPlayerMove = getRandomMove
+
 $(document).ready(() => {
 
-  const makeMove = move => {
-    game.move(move)
-    board.position(game.fen())
-  }
-
-  const makeRandomMove = () => {
-    if (game.game_over()) return
-    const moves = game.moves()
-    const moveIdx = Math.floor(Math.random() * moves.length)
-    makeMove(moves[moveIdx])
-  }
-  const makeCpuMove = makeRandomMove
-  const makePlayerMove = makeRandomMove
-
+  // state
   const game = new Chess()
-
   const config = {
     position: 'start',
     showErrors: 'console',
   }
   const board = Chessboard('board', config)
+
+  const makeMove = makeMoveMaker(game, board)
 
   $(window).resize(board.resize)
 
@@ -55,8 +58,8 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
-    makePlayerMove()
-    makeCpuMove()
+    makeMove(getPlayerMove(game))
+    makeMove(getCpuMove(game))
   })
 
 })
