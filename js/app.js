@@ -21,10 +21,9 @@ function greySquare (square) {
 
 $(document).ready(() => {
 
-  const syncGameBoard = () => board.position(game.fen())
   const makeMove = move => {
     game.move(move)
-    syncGameBoard()
+    board.position(game.fen())
   }
 
   const makeRandomMove = () => {
