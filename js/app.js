@@ -64,7 +64,8 @@ $(document).ready(() => {
   const config = {
     position: 'start',
     onMouseoutSquare: onMouseoutSquare,
-    onMouseoverSquare: onMouseoverSquare
+    onMouseoverSquare: onMouseoverSquare,
+    showErrors: 'console',
   }
   const board = Chessboard('board', config)
 
