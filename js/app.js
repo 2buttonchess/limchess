@@ -1,4 +1,5 @@
-var game = new Chess()
+"use strict";
+
 const whiteSquareGrey = '#a9a9a9'
 const blackSquareGrey = '#696969'
 var highlightedSquare = null
@@ -20,47 +21,37 @@ function greySquare (square) {
   $square.css('background', background)
 }
 
-function onClickSquare (square, piece) {
-  removeGreySquares()
-  // get list of possible moves for this square
-  const moves = game.moves({
-    square: square,
-    verbose: true
-  })
-
-  if(moves.length == 0) {
-    $(highlightedSquare).removeClass(hiClass)
-    clickedSquareName = ""
-    alert("No valid moves")
-    return
-  }
-
-  // highlight the square they moused over
-  greySquare(square)
-
-  // highlight the possible squares for this piece
-  for (const move of moves) {
-    greySquare(move.to)
-  }
-}
-
-function onMouseoverSquare(square, piece) {
-  // get list of possible moves for this square
-  const moves = game.moves({
-    square: square,
-    verbose: true
-  })
-
-  $('.square-' + square).addClass(hiClass)
-
-}
-
 function onMouseoutSquare(square, piece) {
   if(square != clickedSquareName)
     $('.square-' + square).removeClass(hiClass)
 }
 
 $(document).ready(() => {
+
+  function onClickSquare (square, piece) {
+    removeGreySquares()
+    const moves = game.moves({square: square, verbose: true})
+
+    if(moves.length == 0) {
+      $(highlightedSquare).removeClass(hiClass)
+      clickedSquareName = ""
+      return
+    }
+
+    // highlight the square they moused over
+    greySquare(square)
+    // highlight the possible squares for this piece
+    moves.forEach(move => greySquare(move.to))
+  }
+
+  function onMouseoverSquare(square, piece) {
+    // get list of possible moves for this square
+    const moves = game.moves({square: square, verbose: true})
+    $('.square-' + square).addClass(hiClass)
+  }
+
+  const game = new Chess()
+
   const config = {
     position: 'start',
     onMouseoutSquare: onMouseoutSquare,
