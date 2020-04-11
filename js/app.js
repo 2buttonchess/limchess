@@ -51,14 +51,19 @@ $(document).ready(() => {
   }
 
   const syncGameBoard = () => board.position(game.fen())
+  const makeMove = move => {
+    game.move(move)
+    syncGameBoard()
+  }
 
   const makeRandomMove = () => {
     if (game.game_over()) return
     const moves = game.moves()
     const moveIdx = Math.floor(Math.random() * moves.length)
-    game.move(moves[moveIdx])
-    syncGameBoard()
+    makeMove(moves[moveIdx])
   }
+  const makeCpuMove = makeRandomMove
+  const makePlayerMove = makeRandomMove
 
   const game = new Chess()
 
@@ -98,9 +103,8 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
-    // make player move
-    // computer move
-    makeRandomMove()
+    makePlayerMove()
+    makeCpuMove()
   })
 
 })
