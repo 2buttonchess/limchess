@@ -25,3 +25,7 @@ body { width:100%; height:100%; margin:0; padding:0; }
   margin-left: auto;
   width: 40%;
 }
+
+button:focus {
+  background-color: yellow;
+}
