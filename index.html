@@ -17,9 +17,26 @@
     </div>
     <div id='container'>
       <div id='board'></div>
-      <button type='button' id="newGameBtn">New Game</button>
-      <button type='button' id="cycleMoveBtn">Show Next Move</button>
-      <button type='button' id="acceptMoveBtn">Accept Current Move</button>
+      <div id='ui'>
+        <button type='button' id="newGameBtn">New Game</button>
+        <button type='button' id="cycleMoveBtn">Show Next Move</button>
+        <button type='button' id="acceptMoveBtn">Accept Current Move</button>
+        <button type='button' id="newMovesBtn">Generate New Moves</button>
+        <label for="number">Number of player choices</label>
+        <select id="numberMoves">
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5 selected>5</option>
+          <option value=6>6</option>
+          <option value=7>7</option>
+          <option value=8>8</option>
+          <option value=9>9</option>
+          <option value=10>10</option>
+          <option value='all'>All</option>
+        </select>
+      </div>
     </div>
   </body>
 </html>

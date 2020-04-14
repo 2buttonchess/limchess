@@ -28,3 +28,7 @@ html, body { height:100%; margin:auto; padding:0; }
 button:focus {
   background-color: yellow;
 }
+
+#container label {
+  color: white;
+}

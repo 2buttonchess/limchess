@@ -32,7 +32,66 @@ const getRandomMove = game => {
 }
 
 const getCpuMove = getRandomMove
-const getPlayerMove = getRandomMove
+
+const shuffle = array => {
+  // fisher-yates via https://gomakethings.com/how-to-shuffle-an-array-with-vanilla-js/
+  var currentIndex = array.length;
+  var temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+
+class PlayerMoves {
+  constructor(game, getNumberMoves) {
+    this._game = game
+    this._getNumberMoves = getNumberMoves
+    this.newMoves()
+  }
+
+  get currentMove() {
+    return this._moves[this._current_move]
+  }
+
+  highlightMove() {
+    removeGreySquares()
+    greySquare(this.currentMove.to)
+    greySquare(this.currentMove.from)
+  }
+
+  nextMove() {
+    this._current_move++
+    if (this._current_move >= this._moves.length) this._current_move = 0
+    this.highlightMove()
+    return this.currentMove
+  }
+
+  _getMoves() {
+    if (this._game.game_over()) return
+    const moves = this._game.moves({verbose: true})
+    const shuffled = shuffle(moves)
+    const numMoves = this._getNumberMoves()
+    if (numMoves === 'all') return shuffled
+    else return shuffled.slice(0, numMoves)
+  }
+
+  newMoves() {
+    this._moves = this._getMoves()
+    this._current_move = 0
+    this.highlightMove()
+  }
+}
 
 $(document).ready(() => {
 
@@ -43,6 +102,8 @@ $(document).ready(() => {
     showErrors: 'console',
   }
   const board = Chessboard('board', config)
+  const playerMoves = new PlayerMoves(game, () => $("#numberMoves").val())
+  playerMoves.highlightMove()
 
   const makeMove = makeMoveMaker(game, board)
 
@@ -51,15 +112,20 @@ $(document).ready(() => {
   $("#newGameBtn").on('click', () => {
     board.start()
     game.reset()
+    playerMoves.newMoves()
   })
 
   $("#cycleMoveBtn").on('click', () => {
-    // show next move
+    playerMoves.nextMove()
   })
 
   $("#acceptMoveBtn").on('click', () => {
-    makeMove(getPlayerMove(game))
+    makeMove(playerMoves.currentMove)
     makeMove(getCpuMove(game))
+    playerMoves.newMoves()
   })
 
+  $("#newMovesBtn").on('click', () => playerMoves.newMoves())
+
+  $("#numberMoves").on('change', () => playerMoves.newMoves())
 })
