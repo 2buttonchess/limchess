@@ -109,9 +109,18 @@ $(document).ready(() => {
 
   $(window).resize(board.resize)
 
-  $("#newGameBtn").on('click', () => {
+  $("#newGameWhiteBtn").on('click', () => {
     board.start()
+    board.orientation('white')
     game.reset()
+    playerMoves.newMoves()
+  })
+
+  $("#newGameBlackBtn").on('click', () => {
+    board.start()
+    board.orientation('black')
+    game.reset()
+    makeMove(getCpuMove(game))
     playerMoves.newMoves()
   })
 
