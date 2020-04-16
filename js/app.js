@@ -31,7 +31,7 @@ const getRandomMove = game => {
   return moves[moveIdx]
 }
 
-const getCpuMove = getRandomMove
+//const makeCPUMove = (game, board) => move => { return makeCPUMove(move) }
 
 const shuffle = array => {
   // fisher-yates via https://gomakethings.com/how-to-shuffle-an-array-with-vanilla-js/
@@ -120,7 +120,7 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-    makeMove(getCpuMove(game))
+    makeCPUMove(game, board)
     playerMoves.newMoves()
   })
 
@@ -130,7 +130,9 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    makeMove(getCpuMove(game))
+    const date = Date.now()
+    makeCPUMove(game, board);
+    console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
     playerMoves.newMoves()
   })
 
