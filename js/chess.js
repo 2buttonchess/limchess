@@ -1670,6 +1670,18 @@ var Chess = function(fen) {
       return pretty_move
     },
 
+    ugly_move: function(move_obj, options) {
+      var pretty_move = make_pretty(move_obj);
+      make_move(move_obj);
+
+      return pretty_move;
+    },
+
+    ugly_moves: function(options) {
+      var ugly_moves = generate_moves(options);
+      return ugly_moves;
+    },
+
     undo: function() {
       var move = undo_move()
       return move ? make_pretty(move) : null

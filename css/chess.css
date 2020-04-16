@@ -18,8 +18,18 @@ html, body { height:100%; margin:auto; padding:0; }
   background-color:rgba(0,0,0, 0.85);
 }
 
+#thinking {
+  vertical-align: top;
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+  font-size: 3em;
+  color: white;
+  visibility: hidden;
+}
+
 #board {
-  display: block;
+  display: inline-block;
   margin-right: auto;
   margin-left: auto;
   width: 40%;
