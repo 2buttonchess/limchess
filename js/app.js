@@ -3,6 +3,7 @@
 const whiteSquareGrey = '#a9a9a9'
 const blackSquareGrey = '#696969'
 const hiClass = 'highlight2-9c5d2'
+var CPUMove = false
 
 function removeGreySquares () {
   $('#board .square-55d63').css('background', '')
@@ -20,6 +21,9 @@ function greySquare (square) {
 }
 
 const makeMoveMaker = (game, board) => move => {
+  if(CPUMove) {
+    game.ugly_to_pretty(move)
+  }
   game.move(move)
   board.position(game.fen())
 }
@@ -31,7 +35,11 @@ const getRandomMove = game => {
   return moves[moveIdx]
 }
 
-const cpuBestMove = game => { return minimaxRoot(3, game, true); }
+//const cpuBestMove = getRandomMove
+const cpuBestMove = game => { 
+  CPUMove = true
+  return minimaxRoot(3, game, false); 
+}
 
 const shuffle = array => {
   // fisher-yates via https://gomakethings.com/how-to-shuffle-an-array-with-vanilla-js/
@@ -125,7 +133,6 @@ $(document).ready(() => {
     const date = Date.now()
     makeMove(cpuBestMove(game))
     //$("#thinking").css('visibility', 'hidden');
-   // $("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
     playerMoves.newMoves()
   })
@@ -135,13 +142,16 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
+  
     makeMove(playerMoves.currentMove)
     $("#thinking").css('visibility', 'visible');
     const date = Date.now()
     makeMove(cpuBestMove(game))
     //$("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
+    CPUMove = false
     playerMoves.newMoves()
+    moveCount++
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())

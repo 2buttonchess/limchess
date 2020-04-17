@@ -1654,7 +1654,6 @@ var Chess = function(fen) {
           }
         }
       }
-
       /* failed to find move */
       if (!move_obj) {
         return null
@@ -1664,7 +1663,6 @@ var Chess = function(fen) {
        * move is made
        */
       var pretty_move = make_pretty(move_obj)
-
       make_move(move_obj)
 
       return pretty_move
@@ -1680,6 +1678,11 @@ var Chess = function(fen) {
     ugly_moves: function(options) {
       var ugly_moves = generate_moves(options);
       return ugly_moves;
+    },
+
+    ugly_to_pretty: function(move) {
+      move.to = algebraic(move.to)
+      move.from = algebraic(move.from)
     },
 
     undo: function() {
