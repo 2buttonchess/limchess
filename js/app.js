@@ -61,6 +61,7 @@ class PlayerMoves {
   }
 
   get currentMove() {
+    if (this._game.game_over()) return
     return this._moves[this._current_move]
   }
 
@@ -114,6 +115,9 @@ $(document).ready(() => {
     board.orientation('white')
     game.reset()
     playerMoves.newMoves()
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', false)
+      .prop('hidden', false)
   })
 
   $("#newGameBlackBtn").on('click', () => {
@@ -122,6 +126,9 @@ $(document).ready(() => {
     game.reset()
     makeMove(getCpuMove(game))
     playerMoves.newMoves()
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', false)
+      .prop('hidden', false)
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -131,7 +138,13 @@ $(document).ready(() => {
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
     makeMove(getCpuMove(game))
-    playerMoves.newMoves()
+    if (game.game_over()) {
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+        .prop('disabled', true)
+        .prop('hidden', true)
+    } else {
+      playerMoves.newMoves()
+    }
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
