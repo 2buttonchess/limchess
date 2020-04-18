@@ -1,20 +1,20 @@
 "use strict";
 
-const whiteSquareGrey = '#a9a9a9'
-const blackSquareGrey = '#696969'
+const whiteSquareBg = '#00a900'
+const blackSquareBg = '#006900'
 const hiClass = 'highlight2-9c5d2'
 
-function removeGreySquares () {
+function removeColorOnSquares () {
   $('#board .square-55d63').css('background', '')
 }
 
-function greySquare (square) {
+function colorSquare (square) {
   const $square = $('#board .square-' + square)
 
   const background =
     $square.hasClass('black-3c85d')
-    ? whiteSquareGrey
-    : blackSquareGrey
+    ? whiteSquareBg
+    : blackSquareBg
 
   $square.css('background', background)
 }
@@ -70,9 +70,9 @@ class PlayerMoves {
   }
 
   highlightMove() {
-    removeGreySquares()
-    greySquare(this.currentMove.to)
-    greySquare(this.currentMove.from)
+    removeColorOnSquares()
+    colorSquare(this.currentMove.to)
+    colorSquare(this.currentMove.from)
   }
 
   nextMove() {
