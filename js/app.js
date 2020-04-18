@@ -3,7 +3,6 @@
 const whiteSquareGrey = '#a9a9a9'
 const blackSquareGrey = '#696969'
 const hiClass = 'highlight2-9c5d2'
-var CPUMove = false
 
 function removeGreySquares () {
   $('#board .square-55d63').css('background', '')
@@ -21,9 +20,6 @@ function greySquare (square) {
 }
 
 const makeMoveMaker = (game, board) => move => {
-  if(CPUMove) {
-    game.ugly_to_pretty(move)
-  }
   game.move(move)
   board.position(game.fen())
 }
@@ -36,8 +32,9 @@ const getRandomMove = game => {
 }
 
 const getCpuMove = game => {
-  CPUMove = true
-  return minimaxRoot(3, game, false);
+  const move = minimaxRoot(3, game, false);
+  game.ugly_to_pretty(move) // fix minimaxRoot return value; mutates move
+  return move
 }
 
 const shuffle = array => {
@@ -159,7 +156,6 @@ $(document).ready(() => {
         .prop('disabled', true)
         .prop('hidden', true)
     } else {
-      CPUMove = false
       playerMoves.newMoves()
     }
   })
