@@ -69,6 +69,7 @@ class PlayerMoves {
   }
 
   get currentMove() {
+    if (this._game.game_over()) return
     return this._moves[this._current_move]
   }
 
@@ -122,6 +123,9 @@ $(document).ready(() => {
     board.orientation('white')
     game.reset()
     playerMoves.newMoves()
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', false)
+      .prop('hidden', false)
   })
 
   $("#newGameBlackBtn").on('click', () => {
@@ -135,6 +139,9 @@ $(document).ready(() => {
     //$("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
     playerMoves.newMoves()
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', false)
+      .prop('hidden', false)
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -149,9 +156,15 @@ $(document).ready(() => {
     makeMove(cpuBestMove(game))
     //$("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
-    CPUMove = false
-    playerMoves.newMoves()
-    moveCount++
+    if (game.game_over()) {
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+        .prop('disabled', true)
+        .prop('hidden', true)
+    } else {
+      CPUMove = false
+      playerMoves.newMoves()
+      moveCount++
+    }
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
