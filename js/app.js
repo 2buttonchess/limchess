@@ -35,10 +35,9 @@ const getRandomMove = game => {
   return moves[moveIdx]
 }
 
-//const cpuBestMove = getRandomMove
-const cpuBestMove = game => { 
+const getCpuMove = game => {
   CPUMove = true
-  return minimaxRoot(3, game, false); 
+  return minimaxRoot(3, game, false);
 }
 
 const shuffle = array => {
@@ -132,10 +131,9 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-  
     $("#thinking").css('visibility', 'visible');
     const date = Date.now()
-    makeMove(cpuBestMove(game))
+    makeMove(getCpuMove(game))
     //$("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
     playerMoves.newMoves()
@@ -149,11 +147,10 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
-  
     makeMove(playerMoves.currentMove)
     $("#thinking").css('visibility', 'visible');
     const date = Date.now()
-    makeMove(cpuBestMove(game))
+    makeMove(getCpuMove(game))
     //$("#thinking").css('visibility', 'hidden');
     console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
     if (game.game_over()) {
