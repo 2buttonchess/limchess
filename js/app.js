@@ -101,6 +101,14 @@ class PlayerMoves {
   }
 }
 
+const doCpuMove = (game, getCpuMove, makeMove) => {
+  // $("#thinking").css('visibility', 'visible');
+  // const date = Date.now()
+  makeMove(getCpuMove(game))
+  //$("#thinking").css('visibility', 'hidden');
+  // console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
+}
+
 $(document).ready(() => {
 
   // state
@@ -131,11 +139,7 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-    $("#thinking").css('visibility', 'visible');
-    const date = Date.now()
-    makeMove(getCpuMove(game))
-    //$("#thinking").css('visibility', 'hidden');
-    console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
+    doCpuMove(game, getCpuMove, makeMove)
     playerMoves.newMoves()
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
       .prop('disabled', false)
@@ -148,11 +152,7 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    $("#thinking").css('visibility', 'visible');
-    const date = Date.now()
-    makeMove(getCpuMove(game))
-    //$("#thinking").css('visibility', 'hidden');
-    console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
+    doCpuMove(game, getCpuMove, makeMove)
     if (game.game_over()) {
       $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
         .prop('disabled', true)
