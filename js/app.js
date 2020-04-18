@@ -160,7 +160,6 @@ $(document).ready(() => {
     } else {
       CPUMove = false
       playerMoves.newMoves()
-      moveCount++
     }
   })
 
