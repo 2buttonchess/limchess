@@ -102,6 +102,7 @@ class PlayerMoves {
 }
 
 const doCpuMove = (game, getCpuMove, makeMove) => {
+  if (game.game_over()) return
   // $("#thinking").css('visibility', 'visible');
   // const date = Date.now()
   makeMove(getCpuMove(game))
