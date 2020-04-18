@@ -98,15 +98,6 @@ class PlayerMoves {
   }
 }
 
-const doCpuMove = (game, getCpuMove, makeMove) => {
-  if (game.game_over()) return
-  // $("#thinking").css('visibility', 'visible');
-  // const date = Date.now()
-  makeMove(getCpuMove(game))
-  //$("#thinking").css('visibility', 'hidden');
-  // console.log('AI think time: ' + ((Date.now() - date) / 1000) + 's')
-}
-
 $(document).ready(() => {
 
   // state
@@ -120,6 +111,19 @@ $(document).ready(() => {
   playerMoves.highlightMove()
 
   const makeMove = makeMoveMaker(game, board)
+
+  // this function needs the state
+  const doCpuMove = (callback) => {
+    if (game.game_over()) return
+    $("#thinking").css('visibility', 'visible');
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
+    setTimeout(() => {
+      makeMove(getCpuMove(game))
+      $("#thinking").css('visibility', 'hidden');
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', false)
+      if (callback) callback()
+    }, 300)
+  }
 
   $(window).resize(board.resize)
 
@@ -137,11 +141,12 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-    doCpuMove(game, getCpuMove, makeMove)
-    playerMoves.newMoves()
-    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-      .prop('disabled', false)
-      .prop('hidden', false)
+    doCpuMove(() => {
+      playerMoves.newMoves()
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+        .prop('disabled', false)
+        .prop('hidden', false)
+    })
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -150,14 +155,15 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    doCpuMove(game, getCpuMove, makeMove)
-    if (game.game_over()) {
-      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-        .prop('disabled', true)
-        .prop('hidden', true)
-    } else {
-      playerMoves.newMoves()
-    }
+    doCpuMove(() => {
+      if (game.game_over()) {
+        $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+          .prop('disabled', true)
+          .prop('hidden', true)
+      } else {
+        playerMoves.newMoves()
+      }
+    })
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
