@@ -77,3 +77,18 @@ nav ul li {
   margin: 0.5em;
   padding: 0.5em;
 }
+
+#controls dt {
+  font-style: italic;
+  text-align: center;
+}
+
+#controls dd {
+  margin: 1%;
+  padding: 1%;
+  border: 0.1em solid;
+}
+
+#controls dd p:last-child {
+  font-size: small;
+}
