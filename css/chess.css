@@ -18,6 +18,11 @@ body {
   color: #f0d9b5;
 }
 
+.content {
+  max-width: 80ch;
+  padding-left: 25%;
+}
+
 body h3 {
   color: #b58863;
 }
