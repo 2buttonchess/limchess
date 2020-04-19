@@ -21,6 +21,7 @@ body {
 .content {
   max-width: 80ch;
   padding-left: 25%;
+  padding-bottom: 1%;
 }
 
 body h3 {
