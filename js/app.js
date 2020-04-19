@@ -1,20 +1,20 @@
 "use strict";
 
-const whiteSquareGrey = '#a9a9a9'
-const blackSquareGrey = '#696969'
+const whiteSquareBg = '#00a900'
+const blackSquareBg = '#006900'
 const hiClass = 'highlight2-9c5d2'
 
-function removeGreySquares () {
+function removeColorOnSquares () {
   $('#board .square-55d63').css('background', '')
 }
 
-function greySquare (square) {
+function colorSquare (square) {
   const $square = $('#board .square-' + square)
 
   const background =
     $square.hasClass('black-3c85d')
-    ? whiteSquareGrey
-    : blackSquareGrey
+    ? whiteSquareBg
+    : blackSquareBg
 
   $square.css('background', background)
 }
@@ -31,7 +31,11 @@ const getRandomMove = game => {
   return moves[moveIdx]
 }
 
-const getCpuMove = getRandomMove
+const getCpuMove = game => {
+  const move = minimaxRoot(3, game, false);
+  game.ugly_to_pretty(move) // fix minimaxRoot return value; mutates move
+  return move
+}
 
 const shuffle = array => {
   // fisher-yates via https://gomakethings.com/how-to-shuffle-an-array-with-vanilla-js/
@@ -66,9 +70,9 @@ class PlayerMoves {
   }
 
   highlightMove() {
-    removeGreySquares()
-    greySquare(this.currentMove.to)
-    greySquare(this.currentMove.from)
+    removeColorOnSquares()
+    colorSquare(this.currentMove.to)
+    colorSquare(this.currentMove.from)
   }
 
   nextMove() {
@@ -108,6 +112,19 @@ $(document).ready(() => {
 
   const makeMove = makeMoveMaker(game, board)
 
+  // this function needs the state
+  const doCpuMove = (callback) => {
+    if (game.game_over()) return
+    $("#thinking").css('visibility', 'visible');
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
+    setTimeout(() => {
+      makeMove(getCpuMove(game))
+      $("#thinking").css('visibility', 'hidden');
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', false)
+      if (callback) callback()
+    }, 300)
+  }
+
   $(window).resize(board.resize)
 
   $("#newGameWhiteBtn").on('click', () => {
@@ -124,11 +141,12 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-    makeMove(getCpuMove(game))
-    playerMoves.newMoves()
-    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-      .prop('disabled', false)
-      .prop('hidden', false)
+    doCpuMove(() => {
+      playerMoves.newMoves()
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+        .prop('disabled', false)
+        .prop('hidden', false)
+    })
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -137,14 +155,15 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    makeMove(getCpuMove(game))
-    if (game.game_over()) {
-      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-        .prop('disabled', true)
-        .prop('hidden', true)
-    } else {
-      playerMoves.newMoves()
-    }
+    doCpuMove(() => {
+      if (game.game_over()) {
+        $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+          .prop('disabled', true)
+          .prop('hidden', true)
+      } else {
+        playerMoves.newMoves()
+      }
+    })
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())

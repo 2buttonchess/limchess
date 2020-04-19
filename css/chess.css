@@ -28,6 +28,16 @@ body h3 {
   color: #b58863;
 }
 
+#thinking {
+  vertical-align: top;
+  display: inline-block;
+  width: 30%;
+  text-align: center;
+  font-size: 3em;
+  color: white;
+  visibility: hidden;
+}
+
 #board {
   padding-top: 1%;
   padding-bottom: 1%;
