@@ -60,11 +60,11 @@ a:visited {
 }
 
 a:focus {
-  border: 1rem solid yellow;
+  border: 0.5rem solid yellow;
 }
 
 select:focus {
-  border: 1rem solid yellow;
+  border: 0.5rem solid yellow;
 }
 
 kbd {
