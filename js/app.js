@@ -112,7 +112,7 @@ $(document).ready(() => {
 
   const makeMove = makeMoveMaker(game, board)
 
-  // this function needs the state
+  // these functions needs the state
   const doCpuMove = (keepGoing, gameOver) => {
     if (game.game_over()) {
       if (gameOver) gameOver()
@@ -124,7 +124,6 @@ $(document).ready(() => {
     setTimeout(() => {
       makeMove(getCpuMove(game))
       $("#status").css('visibility', 'hidden');
-      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', false)
       if (game.game_over()) {
         if (gameOver) gameOver()
       } else {
@@ -133,28 +132,33 @@ $(document).ready(() => {
     }, 300)
   }
 
+  const prepPlayerTurn = () => {
+    playerMoves.newMoves()
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', false)
+      .prop('hidden', false)
+  }
+
+  const handleGameOver = () => {
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+      .prop('disabled', true)
+      .prop('hidden', true)
+  }
+
   $(window).resize(board.resize)
 
   $("#newGameWhiteBtn").on('click', () => {
     board.start()
     board.orientation('white')
     game.reset()
-    playerMoves.newMoves()
-    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-      .prop('disabled', false)
-      .prop('hidden', false)
+    prepPlayerTurn()
   })
 
   $("#newGameBlackBtn").on('click', () => {
     board.start()
     board.orientation('black')
     game.reset()
-    doCpuMove(() => { // keep going
-      playerMoves.newMoves()
-      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-        .prop('disabled', false)
-        .prop('hidden', false)
-    }, () => {/* game over */})
+    doCpuMove(prepPlayerTurn, handleGameOver)
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -163,13 +167,7 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    doCpuMove(() => { // keep going
-      playerMoves.newMoves()
-    }, () => { // game over
-      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-        .prop('disabled', true)
-        .prop('hidden', true)
-    })
+    doCpuMove(prepPlayerTurn, handleGameOver)
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
