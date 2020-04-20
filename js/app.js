@@ -143,6 +143,21 @@ $(document).ready(() => {
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
       .prop('disabled', true)
       .prop('hidden', true)
+    const status = (() => {
+      const turn = game.turn()
+      if (game.in_checkmate()) {
+        const winner = (turn === 'b') ? 'White' : 'Black'
+        return `Checkmate! ${winner} wins!`
+      } else if (game.in_draw()) {
+        const reason = game.insufficient_material() ? "Insufficent material to win" : "50-move rule"
+        return `Draw! ${reason}`
+      } else if (game.in_stalemate()) {
+        return "Stalemate!"
+      } else if (game.in_threefold_repetition()) {
+        return "Draw! 3-fold repetition"
+      }
+    })()
+    $("#status").css('visibility', 'visible').find("p").html(status)
   }
 
   $(window).resize(board.resize)
