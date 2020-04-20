@@ -10,15 +10,15 @@ Built by [@benknoble](https://github.com/benknoble) and
 
 ## Tech
 
-- [chess.js](https://github.com/jhlywa/chess.js) [BSD-2](./LICENSE-chess.js):
+- [chess.js](https://github.com/jhlywa/chess.js) ([BSD-2](./LICENSE-chess.js)):
   `js/chess.js`
-- [chessboard.js](https://chessboardjs.com) [MIT](./LICENSE-chessboard.js):
+- [chessboard.js](https://chessboardjs.com) ([MIT](./LICENSE-chessboard.js)):
   `js/chessboard-1.0.0.*`,
   `img/chesspieces/*`, `css/chessboard-1.0.0.*`
-  - depends on [jquery](https://jquery.com) [MIT](./LICENSE-jquery.js):
+  - depends on [jquery](https://jquery.com) ([MIT](./LICENSE-jquery.js)):
     `js/jquery-3.4.1.min.js`
 - [simple-chess-ai](https://github.com/lhartikk/simple-chess-ai)
-  [Apache-2](./LICENSE-ai.js): `js/ai.js`
+  ([Apache-2](./LICENSE-ai.js)): `js/ai.js`
 
 ## Local development
 
