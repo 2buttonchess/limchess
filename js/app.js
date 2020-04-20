@@ -118,11 +118,12 @@ $(document).ready(() => {
       if (gameOver) gameOver()
       return
     }
-    $("#thinking").css('visibility', 'visible');
+    $("#status").css('visibility', 'visible')
+      .find("p").html('Thinking...');
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
     setTimeout(() => {
       makeMove(getCpuMove(game))
-      $("#thinking").css('visibility', 'hidden');
+      $("#status").css('visibility', 'hidden');
       $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', false)
       if (game.game_over()) {
         if (gameOver) gameOver()
