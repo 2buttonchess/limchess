@@ -113,15 +113,22 @@ $(document).ready(() => {
   const makeMove = makeMoveMaker(game, board)
 
   // this function needs the state
-  const doCpuMove = (callback) => {
-    if (game.game_over()) return
+  const doCpuMove = (keepGoing, gameOver) => {
+    if (game.game_over()) {
+      if (gameOver) gameOver()
+      return
+    }
     $("#thinking").css('visibility', 'visible');
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
     setTimeout(() => {
       makeMove(getCpuMove(game))
       $("#thinking").css('visibility', 'hidden');
       $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', false)
-      if (callback) callback()
+      if (game.game_over()) {
+        if (gameOver) gameOver()
+      } else {
+        if (keepGoing) keepGoing()
+      }
     }, 300)
   }
 
@@ -141,12 +148,12 @@ $(document).ready(() => {
     board.start()
     board.orientation('black')
     game.reset()
-    doCpuMove(() => {
+    doCpuMove(() => { // keep going
       playerMoves.newMoves()
       $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
         .prop('disabled', false)
         .prop('hidden', false)
-    })
+    }, () => {/* game over */})
   })
 
   $("#cycleMoveBtn").on('click', () => {
@@ -155,14 +162,12 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    doCpuMove(() => {
-      if (game.game_over()) {
-        $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
-          .prop('disabled', true)
-          .prop('hidden', true)
-      } else {
-        playerMoves.newMoves()
-      }
+    doCpuMove(() => { // keep going
+      playerMoves.newMoves()
+    }, () => { // game over
+      $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
+        .prop('disabled', true)
+        .prop('hidden', true)
     })
   })
 
