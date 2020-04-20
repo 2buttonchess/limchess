@@ -118,8 +118,8 @@ $(document).ready(() => {
       if (gameOver) gameOver()
       return
     }
-    $("#status").css('visibility', 'visible')
-      .find("p").html('Thinking...');
+    const status = `${game.in_check() ? "Check!" : ''} Thinking...`
+    $("#status").css('visibility', 'visible').find("p").html(status);
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
     setTimeout(() => {
       makeMove(getCpuMove(game))
@@ -133,6 +133,9 @@ $(document).ready(() => {
   }
 
   const prepPlayerTurn = () => {
+    if (game.in_check()) {
+      $("#status").css('visibility', 'visible').find("p").html("Check! Secure your king!")
+    }
     playerMoves.newMoves()
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
       .prop('disabled', false)
