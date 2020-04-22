@@ -4,7 +4,8 @@
 
 Limited input assisted chess for the web
 
-Play at [https://github.com/benknoble/limchess](https://github.com/benknoble/limchess)!
+Play at
+[https://benknoble.github.io/limchess](https://github.com/benknoble/limchess)!
 
 Built by [@benknoble](https://github.com/benknoble) and
 [@zlintz14](https://github.com/zlintz14) for
