@@ -73,6 +73,22 @@ class PlayerMoves {
     removeColorOnSquares()
     colorSquare(this.currentMove.to)
     colorSquare(this.currentMove.from)
+    if (this.currentMove.flags.includes('p')) { // promotion
+      const promotion = this.currentMove.promotion
+      const newPiece =
+        promotion === 'q'
+        ? 'Queen!'
+        : promotion === 'r'
+        ? 'Rook!'
+        : promotion === 'b'
+        ? 'Bishop!'
+        : promotion === 'n'
+        ? 'Knight!'
+        : `bad promotion: ${promotion}`
+      $("#status").css('visibility', 'visible').find("p").html(`Promote to a ${newPiece}`);
+    } else {
+      $("#status").css('visibility', 'hidden');
+    }
   }
 
   nextMove() {
