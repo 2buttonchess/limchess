@@ -209,4 +209,12 @@ $(document).ready(() => {
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
 
   $("#numberMoves").on('change', () => playerMoves.newMoves())
+
+  // $("#test").on('click', () => {
+  //   const fen = "8/1P6/3N4/8/8/3k4/r7/4KN2 w - - 0 1" // promotion
+  //   game.load(fen)
+  //   board.position(game.fen())
+  //   playerMoves.newMoves()
+  // })
+
 })
