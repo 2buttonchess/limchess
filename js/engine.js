@@ -16,6 +16,10 @@ class Engine {
     this.tell('uci'); // uci initialization
   }
 
+  newgame() {
+    this.tell('ucinewgame')
+  }
+
   position(fen) {
     this.tell(`position fen ${fen}`)
   }
