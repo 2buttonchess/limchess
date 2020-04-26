@@ -85,10 +85,10 @@ class PlayerMoves {
   _getMoves() {
     if (this._game.game_over()) return
     const moves = this._game.moves({verbose: true})
-    const shuffled = shuffle(moves)
     const numMoves = this._getNumberMoves()
-    if (numMoves === 'all') return shuffled
-    else return shuffled.slice(0, numMoves)
+    if (numMoves === 'all') return moves
+    const shuffled = shuffle(moves)
+    return shuffled.slice(0, numMoves)
   }
 
   newMoves() {
