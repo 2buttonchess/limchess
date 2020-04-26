@@ -166,6 +166,7 @@ $(document).ready(() => {
   $(window).resize(board.resize)
 
   $("#newGameWhiteBtn").on('click', () => {
+    $("#status").css('visibility', 'hidden');
     board.start()
     board.orientation('white')
     game.reset()
@@ -173,6 +174,7 @@ $(document).ready(() => {
   })
 
   $("#newGameBlackBtn").on('click', () => {
+    $("#status").css('visibility', 'hidden');
     board.start()
     board.orientation('black')
     game.reset()
