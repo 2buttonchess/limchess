@@ -20,7 +20,7 @@ function colorSquare (square) {
 }
 
 const makeMoveMaker = (game, board) => move => {
-  game.move(move)
+  game.move(move, {sloppy: true})
   board.position(game.fen())
 }
 
@@ -29,12 +29,6 @@ const getRandomMove = game => {
   const moves = game.moves()
   const moveIdx = Math.floor(Math.random() * moves.length)
   return moves[moveIdx]
-}
-
-const getCpuMove = game => {
-  const move = minimaxRoot(3, game, false);
-  game.ugly_to_pretty(move) // fix minimaxRoot return value; mutates move
-  return move
 }
 
 const shuffle = array => {
@@ -86,7 +80,7 @@ class PlayerMoves {
         ? 'Knight!'
         : `bad promotion: ${promotion}`
       $("#status").css('visibility', 'visible').find("p").html(`Promote to a ${newPiece}`);
-    } else {
+    } else if ($("#status").find("p").html().startsWith("Promote")) {
       $("#status").css('visibility', 'hidden');
     }
   }
@@ -129,25 +123,6 @@ $(document).ready(() => {
   const makeMove = makeMoveMaker(game, board)
 
   // these functions needs the state
-  const doCpuMove = (keepGoing, gameOver) => {
-    if (game.game_over()) {
-      if (gameOver) gameOver()
-      return
-    }
-    const status = `${game.in_check() ? "Check!" : ''} Thinking...`
-    $("#status").css('visibility', 'visible').find("p").html(status);
-    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
-    setTimeout(() => {
-      makeMove(getCpuMove(game))
-      $("#status").css('visibility', 'hidden');
-      if (game.game_over()) {
-        if (gameOver) gameOver()
-      } else {
-        if (keepGoing) keepGoing()
-      }
-    }, 300)
-  }
-
   const prepPlayerTurn = () => {
     if (game.in_check()) {
       $("#status").css('visibility', 'visible').find("p").html("Check! Secure your king!")
@@ -179,23 +154,43 @@ $(document).ready(() => {
     $("#status").css('visibility', 'visible').find("p").html(status)
   }
 
+  const doCpuMove = engine => {
+    if (game.game_over()) {
+      handleGameOver()
+      return
+    }
+    const status = `${game.in_check() ? "Check!" : ''} Thinking...`
+    $("#status").css('visibility', 'visible').find("p").html(status);
+    $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
+    setTimeout(() => {
+      engine.position(game.fen())
+      engine.search(5000, 10)
+    }, 300)
+  }
+
+  const engine = new Engine(bm => {
+    makeMove(bm)
+    $("#status").css('visibility', 'hidden');
+    if (game.game_over()) handleGameOver()
+    else prepPlayerTurn()
+  })
+  engine.setSkillLevel(10)
+
+  const newgame = side => {
+    $("#status").css('visibility', 'hidden');
+    engine.newgame()
+    board.start()
+    board.orientation(side)
+    game.reset()
+    if (side === 'white') prepPlayerTurn()
+    else if (side === 'black') doCpuMove(engine)
+  }
+
   $(window).resize(board.resize)
 
-  $("#newGameWhiteBtn").on('click', () => {
-    $("#status").css('visibility', 'hidden');
-    board.start()
-    board.orientation('white')
-    game.reset()
-    prepPlayerTurn()
-  })
+  $("#newGameWhiteBtn").on('click', () => newgame('white'))
 
-  $("#newGameBlackBtn").on('click', () => {
-    $("#status").css('visibility', 'hidden');
-    board.start()
-    board.orientation('black')
-    game.reset()
-    doCpuMove(prepPlayerTurn, handleGameOver)
-  })
+  $("#newGameBlackBtn").on('click', () => newgame('black'))
 
   $("#cycleMoveBtn").on('click', () => {
     playerMoves.nextMove()
@@ -203,12 +198,18 @@ $(document).ready(() => {
 
   $("#acceptMoveBtn").on('click', () => {
     makeMove(playerMoves.currentMove)
-    doCpuMove(prepPlayerTurn, handleGameOver)
+    doCpuMove(engine)
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
 
   $("#numberMoves").on('change', () => playerMoves.newMoves())
+
+  $("#difficultySlider").on('input', () => {
+    const val = $("#difficultySlider").val()
+    $("output[for=difficulty]").html(val)
+    engine.setSkillLevel(val)
+  })
 
   // $("#test").on('click', () => {
   //   const fen = "8/1P6/3N4/8/8/3k4/r7/4KN2 w - - 0 1" // promotion
