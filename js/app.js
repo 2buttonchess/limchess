@@ -164,7 +164,7 @@ $(document).ready(() => {
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn").prop('disabled', true)
     setTimeout(() => {
       engine.position(game.fen())
-      engine.search(2000, 5)
+      engine.search(5000, 10)
     }, 300)
   }
 
