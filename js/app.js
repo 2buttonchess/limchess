@@ -174,6 +174,7 @@ $(document).ready(() => {
     if (game.game_over()) handleGameOver()
     else prepPlayerTurn()
   })
+  engine.setSkillLevel(10)
 
   const newgame = side => {
     $("#status").css('visibility', 'hidden');
@@ -203,6 +204,12 @@ $(document).ready(() => {
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
 
   $("#numberMoves").on('change', () => playerMoves.newMoves())
+
+  $("#difficultySlider").on('input', () => {
+    const val = $("#difficultySlider").val()
+    $("output[for=difficulty]").html(val)
+    engine.setSkillLevel(val)
+  })
 
   // $("#test").on('click', () => {
   //   const fen = "8/1P6/3N4/8/8/3k4/r7/4KN2 w - - 0 1" // promotion
