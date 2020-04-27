@@ -1,71 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html id='top'>
   <head>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' href='css/chess.css'>
     <title>limchess ~ about</title>
     <script src='js/jquery-3.4.1.min.js'></script>
-    <script>
-      var selectableItems;
-      var selectItemsIdx = 0;
-
-      function checkGamepad() {
-        var gp = navigator.getGamepads()[0];
-        var axeLR = gp.axes[0];
-        var axeUD = gp.axes[1];
-        if(axeUD < -0.5) {
-          var y = $(window).scrollTop();
-          $(window).scrollTop(y-50); 
-        } else if(axeUD > 0.5) {
-          var y = $(window).scrollTop();
-          $(window).scrollTop(y+50); 
-        }
-        
-        $(selectableItems[selectItemsIdx]).css("border", "none")
-
-        if(axeLR < -0.5) {
-          window.location.href = selectableItems[selectItemsIdx].href
-        } else if(axeLR > 0.5) {
-          if(selectItemsIdx == selectableItems.length - 1) {
-            selectItemsIdx = 0
-          } else {
-            selectItemsIdx++
-          }
-        }
-        $(selectableItems[selectItemsIdx]).css("border", "0.5rem solid yellow")
-      }
-
-      function canGame() {
-        return "getGamepads" in navigator;
-      }
-
-      $(document).ready(function() {
-        var hasGP = false;
-        var gp;
-        selectableItems = document.getElementsByTagName("BODY")[0].querySelectorAll("a")
-        if(canGame()) {
-
-          $(window).on("gamepadconnected", function() {
-              hasGP = true;
-              console.log("connection event");
-              gp = window.setInterval(checkGamepad,150);
-          });
-
-          $(window).on("gamepaddisconnected", function() {
-              console.log("disconnection event");
-              window.clearInterval(gp)
-          });
-
-          //setup an interval for Chrome
-          var checkGP = window.setInterval(function() {
-              if(navigator.getGamepads()[0]) {
-                  if(!hasGP) $(window).trigger("gamepadconnected");
-                  window.clearInterval(checkGP);
-              }
-          }, 500);
-        }  
-      })
-    </script>
+    <script src='js/gamepad.js'></script>
   </head>
   <body>
     <div id='header'>
@@ -139,7 +79,12 @@
 
       <p>Name inspired in part by <a href="https://lichess.org">lichess</a></p>
 
-      <a href="https://github.com/benknoble/limchess">Site Source</a>
+    <nav>
+      <ul>
+        <li><a href="https://github.com/benknoble/limchess">Site Source</a></li>
+        <li><a href="#top">Go to top of page</a></li>
+      </ul>
+    </nav>
     </div>
   </body>
 </html>
