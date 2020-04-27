@@ -80,7 +80,7 @@ class PlayerMoves {
         ? 'Knight!'
         : `bad promotion: ${promotion}`
       $("#status").css('visibility', 'visible').find("p").html(`Promote to a ${newPiece}`);
-    } else {
+    } else if ($("#status").find("p").html().startsWith("Promote")) {
       $("#status").css('visibility', 'hidden');
     }
   }
