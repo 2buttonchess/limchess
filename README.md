@@ -57,8 +57,8 @@ Name inspired in part by [lichess](https://lichess.org).
   `img/chesspieces/*`, `css/chessboard-1.0.0.*`
   - depends on [jquery](https://jquery.com) ([MIT](./LICENSE-jquery.js)):
     `js/jquery-3.4.1.min.js`
-- [simple-chess-ai](https://github.com/lhartikk/simple-chess-ai)
-  ([Apache-2](./LICENSE-ai.js)): `js/ai.js`
+- [stockfish.js](https://github.com/niklasf/stockfish.js)
+  ([GPL](https://github.com/niklasf/stockfish.js/Copying.txt)): `js/stockfish.*`
 
 ## Local development
 
