@@ -105,12 +105,18 @@ $(document).ready(() => {
     $(window).on("gamepadconnected", function() {
         hasGP = true;
         $("#gamepadStatus").find("p").html("Gamepad device has been connected!")
+        document.activeElement.blur()
         gp = window.setInterval(checkGamepad,125);
     });
 
     $(window).on("gamepaddisconnected", function() {
       $("#gamepadStatus").find("p").html("Gamepad device not connected")
-        window.clearInterval(gp)
+      if(selectableItems[selectItemsIdx].localName == "button") {
+        $(selectableItems[selectItemsIdx]).css("background-color", "")
+      } else {
+        $(selectableItems[selectItemsIdx]).css("border", "none")
+      }
+      window.clearInterval(gp)
     });
 
     //setup an interval for Chrome
