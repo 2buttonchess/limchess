@@ -230,4 +230,9 @@ $(document).ready(() => {
   //   playerMoves.newMoves()
   // })
 
+  $("#numberMoves").on('focusin', () => $('#numberMovesContainer').css('background-color', 'yellow'))
+  $("#numberMoves").on('focusout', () => $('#numberMovesContainer').css('background-color', ''))
+  $("#difficultySlider").on('focusin', () => $('#difficultyContainer').css('background-color', 'yellow'))
+  $("#difficultySlider").on('focusout', () => $('#difficultyContainer').css('background-color', ''))
+
 })
