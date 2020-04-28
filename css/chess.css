@@ -38,6 +38,12 @@ body h3 {
   visibility: hidden;
 }
 
+#gamepadStatus {
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
+}
+
 #board {
   padding-top: 1%;
   padding-bottom: 1%;
@@ -60,10 +66,6 @@ a:visited {
 }
 
 a:focus {
-  border: 0.5rem solid yellow;
-}
-
-select:focus {
   border: 0.5rem solid yellow;
 }
 
