@@ -168,12 +168,19 @@ $(document).ready(() => {
     }, 300)
   }
 
-  const engine = new Engine(bm => {
+  const handleBestMove = bm => {
     makeMove(bm)
     $("#status").css('visibility', 'hidden');
     if (game.game_over()) handleGameOver()
     else prepPlayerTurn()
-  })
+  }
+
+  const engine = new Engine( e => {
+    console.log(e.data);
+    const words = e.data.split(' ')
+    if (words[0] === 'bestmove')
+      handleBestMove(words[1])
+  });
   engine.setSkillLevel(10)
 
   const newgame = side => {
