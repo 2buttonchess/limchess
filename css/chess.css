@@ -38,6 +38,10 @@ body h3 {
   visibility: hidden;
 }
 
+#feedback {
+  text-align: center;
+}
+
 #board {
   padding-top: 1%;
   padding-bottom: 1%;

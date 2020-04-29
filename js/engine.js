@@ -22,6 +22,10 @@ class Engine {
     this.tell(`go movetime ${maxtimeMS} depth ${depth}`)
   }
 
+  evaluateMove(maxtimeMS, depth, move) {
+    this.tell(`go movetime ${maxtimeMS} depth ${depth} searchmoves ${move}`)
+  }
+
   setSkillLevel(skill) {
     this.tell(`setoption name Skill Level value ${skill}`)
   }
