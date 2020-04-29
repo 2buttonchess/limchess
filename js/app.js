@@ -114,6 +114,7 @@ $(document).ready(() => {
 
   // state
   let playerSide = 'white'
+  let lastEval = 0
   const game = new Chess()
   const config = {
     position: 'start',
@@ -197,15 +198,17 @@ $(document).ready(() => {
       // words[8] may be 'cp' for centipawn or 'mate' for mate in X moves
       const evaluation = words[9]
       const score = parseInt(evaluation)
-      const good = (playerSide === 'white' && score > 0)
-                || (playerSide === 'black' && score < 0);
+      const good = (playerSide === 'white' && score >= lastEval)
+                || (playerSide === 'black' && score <= lastEval);
       // console.warn(`debug: ${evaluation} ${score} ${good}`)
       updateEvaluation(good ? "Great move!" : "Bad move!")
+      lastEval = score
     }
   });
 
   const newgame = side => {
     playerSide = side
+    lastEval = 0
     $("#status").css('visibility', 'hidden');
     engine.newgame()
     board.start()
