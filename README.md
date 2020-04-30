@@ -44,7 +44,8 @@ Advanced players can opt for all moves to be a part of the repertoire, while
 newer players might be happy with only a few. This allows them to focus on the
 fun of playing the game and worry less about making the best moves. In order to
 be fair, we wished to present the player with a choice of good, bad, and average
-moves, based on an AI evaluation (not yet implemented).
+moves, based on an AI evaluation (not yet implemented). This being difficult, we
+opted to present feedback to the player on whether a move was good or bad.
 
 Name inspired in part by [lichess](https://lichess.org).
 
