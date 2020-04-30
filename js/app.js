@@ -1,8 +1,9 @@
 "use strict";
 
-const whiteSquareBg = '#00a900'
-const blackSquareBg = '#006900'
-const hiClass = 'highlight2-9c5d2'
+const whiteSquareBg = '#9340FF'
+const blackSquareBg = '#5601C3'
+var selectableItems;
+var selectItemsIdx = 0;
 
 function removeColorOnSquares () {
   $('#board .square-55d63').css('background', '')
@@ -13,8 +14,8 @@ function colorSquare (square) {
 
   const background =
     $square.hasClass('black-3c85d')
-    ? whiteSquareBg
-    : blackSquareBg
+    ? blackSquareBg
+    : whiteSquareBg
 
   $square.css('background', background)
 }
@@ -96,7 +97,8 @@ class PlayerMoves {
     if (this._game.game_over()) return
     const moves = this._game.moves({verbose: true})
     const numMoves = this._getNumberMoves()
-    if (numMoves === 'all') return moves
+    //all
+    if (numMoves == 11) return moves
     const shuffled = shuffle(moves)
     return shuffled.slice(0, numMoves)
   }
@@ -203,11 +205,21 @@ $(document).ready(() => {
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
 
-  $("#numberMoves").on('change', () => playerMoves.newMoves())
+  $("#numberMoves").on('input', () => {
+    const val = $("#numberMoves").val()
+  //  console.log(val)
+    if(val == 11) {
+      $("output[for=number]").html("&ensp;all&emsp;")
+    } else {
+      $("output[for=number]").html("&ensp;" + val + "&emsp;")
+    }
+    playerMoves.newMoves()
+  })
 
   $("#difficultySlider").on('input', () => {
     const val = $("#difficultySlider").val()
-    $("output[for=difficulty]").html(val)
+  //  console.log(val)
+    $("output[for=difficulty]").html("&ensp;" + val + "&emsp;")
     engine.setSkillLevel(val)
   })
 
@@ -217,5 +229,10 @@ $(document).ready(() => {
   //   board.position(game.fen())
   //   playerMoves.newMoves()
   // })
+
+  $("#numberMoves").on('focusin', () => $('#numberMovesContainer').css('background-color', 'yellow'))
+  $("#numberMoves").on('focusout', () => $('#numberMovesContainer').css('background-color', ''))
+  $("#difficultySlider").on('focusin', () => $('#difficultyContainer').css('background-color', 'yellow'))
+  $("#difficultySlider").on('focusout', () => $('#difficultyContainer').css('background-color', ''))
 
 })

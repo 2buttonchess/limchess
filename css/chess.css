@@ -20,8 +20,19 @@ body {
 
 .content {
   max-width: 80ch;
+  line-height: 1.6;
+  font-size: 18px;
   padding-left: 25%;
   padding-bottom: 1%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
 }
 
 body h3 {
@@ -36,6 +47,12 @@ body h3 {
   font-size: 3em;
   color: white;
   visibility: hidden;
+}
+
+#gamepadStatus {
+  text-align: center;
+  font-size: 1.5em;
+  color: white;
 }
 
 #board {
@@ -63,11 +80,8 @@ a:focus {
   border: 0.5rem solid yellow;
 }
 
-select:focus {
-  border: 0.5rem solid yellow;
-}
-
 kbd {
+  font-size: 16px;
   display: inline-block;
   margin: 0 .1em;
   padding: .1em .6em;

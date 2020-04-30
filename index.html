@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id='top'>
   <head>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' href='css/chessboard-1.0.0.min.css'>
@@ -9,12 +9,16 @@
     <script src='js/chess.js'></script>
     <script src='js/chessboard-1.0.0.min.js'></script>
     <script src='js/app.js'></script>
+    <script src='js/gamepad.js'></script>
     <title>limchess</title>
   </head>
   <body>
     <div id='header'>
       <h1>limchess</h1>
       <h2>Limited input accessible chess</h2>
+    </div>
+    <div id='gamepadStatus'>
+      <p>Gamepad device not connected</p>
     </div>
     <nav>
       <ul>
@@ -28,34 +32,37 @@
       </div>
       <div id='board'></div>
       <div id='ui'>
-        <!-- <button type='button' id='test'>Test</button> -->
-        <button type='button' id="newGameWhiteBtn">New Game as White</button>
-        <button type='button' id="newGameBlackBtn">New Game as Black</button>
-        <button type='button' id="cycleMoveBtn">Show Next Move</button>
-        <button type='button' id="acceptMoveBtn">Accept Current Move</button>
-        <button type='button' id="newMovesBtn">Generate New Moves</button>
-        <label for="number">Number of player choices</label>
-        <select id="numberMoves">
-          <option value=1>1</option>
-          <option value=2>2</option>
-          <option value=3>3</option>
-          <option value=4>4</option>
-          <option value=5 selected>5</option>
-          <option value=6>6</option>
-          <option value=7>7</option>
-          <option value=8>8</option>
-          <option value=9>9</option>
-          <option value=10>10</option>
-          <option value='all'>All</option>
-        </select>
-        <label for='difficulty'>Difficulty</label>
-        <input id='difficultySlider'
-               name='difficulty'
-               type='range'
-               min='0'
-               max='20'
-               value='10'>
-        <output for='difficulty'>10</output>
+        <div id='ui-important'>
+          <!-- <button type='button' id='test'>Test</button> -->
+          <button type='button' id="newGameWhiteBtn">New Game as White</button>
+          <button type='button' id="newGameBlackBtn">New Game as Black</button>
+          <button type='button' id="cycleMoveBtn">Show Next Move</button>
+          <button type='button' id="acceptMoveBtn">Accept Current Move</button>
+        </div>
+        <div id='ui-extra'>
+          <button type='button' id="newMovesBtn">Generate New Moves</button>
+          <label for="number">&emsp;Number of player choices</label>
+          <div id='numberMovesContainer' style='display:inline;'>
+            <input id='numberMoves'
+                   name='number'
+                   type='range'
+                   min='1'
+                   max='11'
+                   value='6'>
+          </div>
+          <output for='number'>6&emsp;</output>
+          <label for='difficulty'>Difficulty</label>
+          <div id='difficultyContainer' style='display:inline;'>
+            <input id='difficultySlider'
+                   name='difficulty'
+                   type='range'
+                   min='0'
+                   max='20'
+                   value='10'>
+          </div>
+          <output for='difficulty'>10&emsp;</output>
+          <a class="goToTop" href="#top">Go to top of page</a>
+        </div>
       </div>
     </div>
   </body>
