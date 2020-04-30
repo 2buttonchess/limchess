@@ -199,6 +199,8 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
+    isThinking = true
+    setTimeout(function(){ isThinking = false }, 500)
     makeMove(playerMoves.currentMove)
     doCpuMove(engine)
   })

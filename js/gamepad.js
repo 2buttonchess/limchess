@@ -1,6 +1,7 @@
 var selectableItems;
 var selectItemsIdx = 0;
 var isSlider = false;
+var isThinking = false;
 
 function topFunction() {
   document.body.scrollTop = 0; // For Safari
@@ -14,6 +15,10 @@ function canGame() {
 }
 
 function checkGamepad() {
+  if(isThinking) {
+    return;
+  }
+
   var gp = navigator.getGamepads()[0];
   var axeLR = gp.axes[0];
   var axeUD = gp.axes[1];
