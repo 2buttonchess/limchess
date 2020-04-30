@@ -4,11 +4,16 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' href='css/chess.css'>
     <title>limchess ~ about</title>
+    <script src='js/jquery-3.4.1.min.js'></script>
+    <script src='js/gamepad.js'></script>
   </head>
   <body>
     <div id='header'>
       <h1>limchess</h1>
       <h2>Limited input accessible chess</h2>
+    </div>
+    <div id='gamepadStatus'>
+      <p>Gamepad device not connected</p>
     </div>
     <nav>
       <ul>
@@ -73,11 +78,18 @@
           app to implement functionality</li>
         <li><a href="https://github.com/niklasf/stockfish.js">stockfish.js</a>
           (GPL) to power the AI</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API">Gamepad API</a>
+            (Mozilla) to connect to Gamepad devices</li>
       </ul>
 
       <p>Name inspired in part by <a href="https://lichess.org">lichess</a></p>
 
-      <a href="https://github.com/benknoble/limchess">Site Source</a>
+    <nav>
+      <ul>
+        <li><a href="https://github.com/benknoble/limchess">Site Source</a></li>
+        <li><button onclick="topFunction()" id="goToTopAbout" title="Go to top of page">Go to top of page</button></li>
+      </ul>
+    </nav>
     </div>
   </body>
 </html>
