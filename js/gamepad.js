@@ -5,6 +5,8 @@ var isSlider = false;
 function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  $(selectableItems[selectItemsIdx]).css("background-color", "")
+  selectItemsIdx = 0
 }
 
 function canGame() {
@@ -132,10 +134,5 @@ $(document).ready(() => {
         }
     }, 500);
   }
-
-  $(window).on('popstate', () =>  {
-    $(selectableItems[selectItemsIdx]).css("border", "none")
-    selectItemsIdx = 0
-  })
 
 })
