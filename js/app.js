@@ -171,6 +171,7 @@ $(document).ready(() => {
   }
 
   const engine = new Engine(bm => {
+    isThinking = false
     makeMove(bm)
     $("#status").css('visibility', 'hidden');
     if (game.game_over()) handleGameOver()
@@ -199,9 +200,8 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
-    isThinking = true
-    setTimeout(function(){ isThinking = false }, 500)
     makeMove(playerMoves.currentMove)
+    isThinking = true
     doCpuMove(engine)
   })
 
