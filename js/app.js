@@ -20,6 +20,8 @@ function colorSquare (square) {
   $square.css('background', background)
 }
 
+const lan = move => `${move.from}${move.to}`
+
 const makeMoveMaker = (game, board) => move => {
   game.move(move, {sloppy: true})
   board.position(game.fen())
@@ -116,6 +118,8 @@ class PlayerMoves {
 $(document).ready(() => {
 
   // state
+  let playerSide = 'white'
+  let lastEval = 0
   const game = new Chess()
   const config = {
     position: 'start',
@@ -172,17 +176,46 @@ $(document).ready(() => {
     }, 300)
   }
 
-  const engine = new Engine(bm => {
+  const handleBestMove = bm => {
     isThinking = false
     makeMove(bm)
     $("#status").css('visibility', 'hidden');
     if (game.game_over()) handleGameOver()
     else prepPlayerTurn()
-  })
+  }
+
+  const engine = new Engine(e => {
+    console.log(`ai: ${e.data}`);
+    const words = e.data.split(' ')
+    if (words[0] === 'bestmove')
+      handleBestMove(words[1])
+  });
   engine.setSkillLevel(10)
 
+  const updateEvaluation = ev => {
+    $("#feedback").find("p").html(ev)
+  }
+
+  const playerEv = new Engine(e => {
+    console.log(`playerEv: ${e.data}`);
+    const words = e.data.split(' ')
+    if (words[0] === 'info') {
+      // words[8] may be 'cp' for centipawn or 'mate' for mate in X moves
+      const evaluation = words[9]
+      const score = parseInt(evaluation)
+      const good = (playerSide === 'white' && score >= lastEval)
+                || (playerSide === 'black' && score <= lastEval);
+      // console.warn(`debug: ${evaluation} ${score} ${good}`)
+      updateEvaluation(good ? "Great move!" : "Bad move!")
+      lastEval = score
+    }
+  });
+
   const newgame = side => {
+    playerSide = side
+    lastEval = 0
     $("#status").css('visibility', 'hidden');
+    $("#feedback").find("p").html("")
     engine.newgame()
     board.start()
     board.orientation(side)
@@ -202,8 +235,11 @@ $(document).ready(() => {
   })
 
   $("#acceptMoveBtn").on('click', () => {
-    makeMove(playerMoves.currentMove)
+    const move = playerMoves.currentMove
+    playerEv.position(game.fen())
+    playerEv.evaluateMove(500, 1, lan(move))
     isThinking = true
+    makeMove(move)
     doCpuMove(engine)
   })
 

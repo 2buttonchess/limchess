@@ -2,17 +2,11 @@
 
 class Engine {
 
-  constructor(onBestMove) {
+  constructor(callback) {
     const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
     const stockfish = new Worker(wasmSupported ? 'js/stockfish.wasm.js' : 'js/stockfish.js');
-    // this.onBestMove = onBestMove
     this.sf = stockfish
-    this.sf.addEventListener('message', e => {
-      console.log(e.data);
-      const words = e.data.split(' ')
-      if (words[0] === 'bestmove')
-        onBestMove(words[1])
-    });
+    this.sf.addEventListener('message', callback)
     this.tell('uci'); // uci initialization
   }
 
@@ -26,6 +20,10 @@ class Engine {
 
   search(maxtimeMS, depth) {
     this.tell(`go movetime ${maxtimeMS} depth ${depth}`)
+  }
+
+  evaluateMove(maxtimeMS, depth, move) {
+    this.tell(`go movetime ${maxtimeMS} depth ${depth} searchmoves ${move}`)
   }
 
   setSkillLevel(skill) {
