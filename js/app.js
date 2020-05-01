@@ -83,6 +83,9 @@ class PlayerMoves {
         ? 'Knight!'
         : `bad promotion: ${promotion}`
       $("#status").css('visibility', 'visible').find("p").html(`Promote to a ${newPiece}`);
+    } else if (this.currentMove.flags.includes('k')
+            || this.currentMove.flags.includes('q')) {
+      $("#status").css('visibility', 'visible').find("p").html("Castle!");
     } else if ($("#status").find("p").html().startsWith("Promote")) {
       $("#status").css('visibility', 'hidden');
     }
@@ -128,7 +131,6 @@ $(document).ready(() => {
 
   const makeMove = makeMoveMaker(game, board)
 
-  // these functions needs the state
   const prepPlayerTurn = () => {
     if (game.in_check()) {
       $("#status").css('visibility', 'visible').find("p").html("Check! Secure your king!")
@@ -175,6 +177,7 @@ $(document).ready(() => {
   }
 
   const handleBestMove = bm => {
+    isThinking = false
     makeMove(bm)
     $("#status").css('visibility', 'hidden');
     if (game.game_over()) handleGameOver()
@@ -235,6 +238,7 @@ $(document).ready(() => {
     const move = playerMoves.currentMove
     playerEv.position(game.fen())
     playerEv.evaluateMove(500, 1, lan(move))
+    isThinking = true
     makeMove(move)
     doCpuMove(engine)
   })
@@ -243,7 +247,7 @@ $(document).ready(() => {
 
   $("#numberMoves").on('input', () => {
     const val = $("#numberMoves").val()
-  //  console.log(val)
+    //  console.log(val)
     if(val == 11) {
       $("output[for=number]").html("&ensp;all&emsp;")
     } else {
@@ -254,7 +258,7 @@ $(document).ready(() => {
 
   $("#difficultySlider").on('input', () => {
     const val = $("#difficultySlider").val()
-  //  console.log(val)
+    //  console.log(val)
     $("output[for=difficulty]").html("&ensp;" + val + "&emsp;")
     engine.setSkillLevel(val)
   })

@@ -1,10 +1,13 @@
 var selectableItems;
 var selectItemsIdx = 0;
 var isSlider = false;
+var isThinking = false;
 
 function topFunction() {
   document.body.scrollTop = 0; // For Safari
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  $(selectableItems[selectItemsIdx]).css("background-color", "")
+  selectItemsIdx = 0
 }
 
 function canGame() {
@@ -12,6 +15,10 @@ function canGame() {
 }
 
 function checkGamepad() {
+  if(isThinking) {
+    return;
+  }
+
   var gp = navigator.getGamepads()[0];
   var axeLR = gp.axes[0];
   var axeUD = gp.axes[1];
@@ -132,10 +139,5 @@ $(document).ready(() => {
         }
     }, 500);
   }
-
-  $(window).on('popstate', () =>  {
-    $(selectableItems[selectItemsIdx]).css("border", "none")
-    selectItemsIdx = 0
-  })
 
 })
