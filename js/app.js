@@ -212,6 +212,7 @@ $(document).ready(() => {
     playerSide = side
     lastEval = 0
     $("#status").css('visibility', 'hidden');
+    $("#feedback").find("p").html("")
     engine.newgame()
     board.start()
     board.orientation(side)
