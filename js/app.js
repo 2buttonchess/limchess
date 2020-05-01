@@ -81,6 +81,9 @@ class PlayerMoves {
         ? 'Knight!'
         : `bad promotion: ${promotion}`
       $("#status").css('visibility', 'visible').find("p").html(`Promote to a ${newPiece}`);
+    } else if (this.currentMove.flags.includes('k')
+            || this.currentMove.flags.includes('q')) {
+      $("#status").css('visibility', 'visible').find("p").html("Castle!");
     } else if ($("#status").find("p").html().startsWith("Promote")) {
       $("#status").css('visibility', 'hidden');
     }
