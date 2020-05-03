@@ -8,6 +8,8 @@ Inspired in part by [lichess][].
 
 [lichess]: https://lichess.org
 
+[Demo](https://youtu.be/kLtK9YxcZKA)
+
 ## Description
 
 limchess brings the beautiful world of chess to the web by using the accessible
