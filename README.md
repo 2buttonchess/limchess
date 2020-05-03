@@ -45,7 +45,7 @@ newer players might be happy with only a few. This allows them to focus on the
 fun of playing the game and worry less about making the best moves. In order to
 be fair, we wished to present the player with a choice of good, bad, and average
 moves, based on an AI evaluation (not yet implemented). This being difficult, we
-opted to present feedback to the player on whether a move was good or bad.
+opted to present feedback to the player on whether a move was great or bad.
 
 Name inspired in part by [lichess](https://lichess.org).
 
