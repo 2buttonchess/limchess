@@ -7,6 +7,8 @@ Limited input assisted chess for the web
 Play at
 [https://benknoble.github.io/limchess](https://github.com/benknoble/limchess)!
 
+[Watch the demo on Youtube](https://youtu.be/kLtK9YxcZKA)
+
 Built by [@benknoble](https://github.com/benknoble) and
 [@zlintz14](https://github.com/zlintz14) for
 [@gbishop](https://github.com/gbishop)'s Comp 580: Enabling Technology class.
