@@ -15,15 +15,15 @@ principles of limited input and limited degrees of freedom.
 
 limchess pits the player against a variable-difficulty chess AI in the world's
 greatest game. The player picks moves from a list of optionally-limited possible
-moves using only two buttons or switches, receives feedback on the quality of
-the move, and then is met with the chess AI's move. Players control the
-difficulty of the AI and the number of moves presented as choices with two
-sliders (also drivable via switch inputs). In order to keep the game appealing
-to stronger chess players, we permit the full range of AI difficulties, and we
-permit the player to "unlimit" the possible move choices (allowing the player to
-play any valid chess move). Players may also get a new list of choices if they
-wish, and they may start a new game as either side at any time. limchess also
-appeals to players learning the game by
+moves using only two buttons, two switches, or a joystick; the player then
+receives feedback on the quality of the move and finally is met with the chess
+AI's move. Players control the difficulty of the AI and the number of moves
+presented as choices with two sliders (also drivable via switch inputs). In
+order to keep the game appealing to stronger chess players, we permit the full
+range of AI difficulties, and we permit the player to "unlimit" the possible
+move choices (allowing the player to play any valid chess move). Players may
+also get a new list of choices if they wish, and they may start a new game as
+either side at any time. limchess also appeals to players learning the game by
 - annotating moves as good or bad,
 - limiting the number of choices a new player has to consider, and
 - annotating the current position when certain rules trigger (such as check or
@@ -44,9 +44,9 @@ spastic or only controllable with difficulty. A natural step is voice-playable
 chess&mdash;given the time and resource constraints, we felt this was beyond the
 scope of our project. Instead, we opted for a 2-button accessible game player,
 since 2-buttons is a common input device for people with cerebral palsy or other
-motor disorders. One button chooses a move and another confirms the
-selection. Theoretically, this is all one needs to play chess&mdash;and the web
-makes a perfect candidate for the prototype.
+motor disorders. One button chooses a move and another confirms the selection.
+Theoretically, this is all one needs to play chess, and the web makes a perfect
+candidate for the prototype.
 
 In addition, we felt that the number of possible moves in chess can be
 overwhelming to new players and presents yet another degree of freedom. In an
@@ -63,18 +63,18 @@ present feedback to the player on whether a move was good or bad.
 
 limchess is a website and so leans directly on the technology of the web (HTML,
 CSS, and JavaScript). It also makes heavy use of [jquery][] to simplify
-cross-browser differences and aid development. It makes use of the [GamePad
+cross-browser differences and aid development. It makes use of the [Gamepad
 API][] to enable alternative input sources.
 
 [jquery]: https://jquery.com
-[GamePad API]: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+[Gamepad API]: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
 
 We made use of 3 primary libraries in our webgame:
 
-- [chess.js][] provides a chess rules-engine that backs the web-facing game. In
-  essence, it is responsible for deciding whose move it is, which moves are
-  valid, and when the game is won, lost, or drawn based on the current moves. It
-  includes castling, en-passant, promotions, and many other chess complexities.
+- [chess.js][] provides a chess rules-engine that backs the web-facing game.
+  It is responsible for deciding whose move it is, which moves are valid, and
+  when the game is won, lost, or drawn based on the current moves. It includes
+  castling, en-passant, promotions, and many other chess complexities.
 - [chessboard.js][] provides a web-facing (HTML) board that is manipulable via
   JavaScript functions. When tied in with chess.js, it becomes a fully
   functional and programmable virtual chessboard. It is primarily responsible
@@ -215,7 +215,7 @@ which will automatically choose the correct Python (2 or 3) HTTP server to run.
 We encountered at least 3 serious problems during the course of development:
 
 1. Drop-downs created by the HTML element `<select>` are not easily accessible
-   via either <kbd>Tab</kbd> and <kbd>Enter</kbd> combinations or GamePad
+   via either <kbd>Tab</kbd> and <kbd>Enter</kbd> combinations or Gamepad
    inputs. We solved this by converting to sliders (`<input type='range'>`) and
    manipulating them.
 1. Communicating with web workers proved an exercise in thoughtful design. We
@@ -232,7 +232,7 @@ We encountered at least 3 serious problems during the course of development:
    *before* presenting them to the player required us to be able to tag each
    possible move and thus to precisely identify which of many similar responses
    was related to which move. Further, each response is often several similar
-   messages, which later messages giving more accurate evaluations. The quantity
+   messages, with later messages giving more accurate evaluations. The quantity
    of information is generally useful, but in this case it was overwhelming to
    attempt to program asynchronously. We solved this by (1) rating moves after
    they have been played, so that we only have to identify one move's response,
@@ -249,7 +249,7 @@ Future work could
   and playing;
 - develop the ability for 2 players to play a shared game together from
   different browsers or computers;
-- test other alternative input devices for compatibility with the sites GamePad
+- test other alternative input devices for compatibility with the sites Gamepad
   API programming
 - implement other alternative chess rules (bughouse/crazyhouse, chess960, and
   antichess being popular [variants][])
