@@ -5,7 +5,7 @@
 Limited input assisted chess for the web
 
 Play at
-[https://benknoble.github.io/limchess](https://github.com/benknoble/limchess)!
+[https://benknoble.github.io/limchess](https://benknoble.github.io/limchess)!
 
 [Watch the demo on Youtube](https://youtu.be/kLtK9YxcZKA)
 
