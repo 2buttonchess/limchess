@@ -2,8 +2,6 @@
 
 const whiteSquareBg = '#9340FF'
 const blackSquareBg = '#5601C3'
-var selectableItems;
-var selectItemsIdx = 0;
 
 function removeColorOnSquares () {
   $('#board .square-55d63').css('background', '')
@@ -118,6 +116,7 @@ class PlayerMoves {
 $(document).ready(() => {
 
   // state
+  selectableItems = document.getElementsByTagName("BODY")[0].querySelectorAll("button, a, input")
   let playerSide = 'white'
   let lastEval = 0
   const game = new Chess()
