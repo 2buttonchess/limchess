@@ -8,6 +8,7 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   $(selectableItems[selectItemsIdx]).css("background-color", "")
   selectItemsIdx = 0
+  $(selectableItems[selectItemsIdx]).focus()
 }
 
 function canGame() {
@@ -112,6 +113,7 @@ $(document).ready(() => {
   var hasGP = false;
   var gp;
   selectableItems = document.getElementsByTagName("BODY")[0].querySelectorAll("button, a, input")
+  $(selectableItems[0]).focus()
   if(canGame()) {
 
     $(window).on("gamepadconnected", function() {
