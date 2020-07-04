@@ -240,6 +240,7 @@ $(document).ready(() => {
     isThinking = true
     makeMove(move)
     doCpuMove(engine)
+    $("#cycleMoveBtn").focus()
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
