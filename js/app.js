@@ -211,16 +211,18 @@ $(document).ready(() => {
   });
 
   const newgame = side => {
-    playerSide = side
-    lastEval = 0
-    $("#status").css('visibility', 'hidden');
-    $("#feedback").find("p").html("")
-    engine.newgame()
-    board.start()
-    board.orientation(side)
-    game.reset()
-    if (side === 'white') prepPlayerTurn()
-    else if (side === 'black') doCpuMove(engine)
+    if (confirm(`Do you want to start a new game as ${side}?`)) {
+      playerSide = side
+      lastEval = 0
+      $("#status").css('visibility', 'hidden');
+      $("#feedback").find("p").html("")
+      engine.newgame()
+      board.start()
+      board.orientation(side)
+      game.reset()
+      if (side === 'white') prepPlayerTurn()
+      else if (side === 'black') doCpuMove(engine)
+    }
   }
 
   $(window).resize(board.resize)
