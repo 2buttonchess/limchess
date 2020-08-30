@@ -195,7 +195,7 @@ There are two ways to deploy the website: via GitHub Pages and manually.
 To deploy via GitHub Pages, create a repo with this source code (such as by
 [forking][] it) and enable GitHub Pages on it.
 
-[forking]: https://github.com/benknoble/limchess/fork
+[forking]: https://github.com/2buttonchess/limchess/fork
 
 ### To deploy manually
 
