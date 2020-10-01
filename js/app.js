@@ -138,6 +138,8 @@ $(document).ready(() => {
     $("#acceptMoveBtn, #cycleMoveBtn, #newMovesBtn")
       .prop('disabled', false)
       .prop('hidden', false)
+    $("#cycleMoveBtn").focus()
+    selectItemsIdx = Array.from(selectableItems).findIndex(v => v.id == "cycleMoveBtn")
   }
 
   const handleGameOver = () => {
@@ -240,7 +242,6 @@ $(document).ready(() => {
     isThinking = true
     makeMove(move)
     doCpuMove(engine)
-    $("#cycleMoveBtn").focus()
   })
 
   $("#newMovesBtn").on('click', () => playerMoves.newMoves())
