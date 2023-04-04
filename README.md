@@ -59,7 +59,7 @@ Name inspired in part by [lichess](https://lichess.org).
   `js/chessboard-1.0.0.*`,
   `img/chesspieces/*`, `css/chessboard-1.0.0.*`
   - depends on [jquery](https://jquery.com) ([MIT](./LICENSE-jquery.js)):
-    `js/jquery-3.4.1.min.js`
+    `js/jquery-3.6.4.min.js`
 - [stockfish.js](https://github.com/niklasf/stockfish.js)
   ([GPL](https://github.com/niklasf/stockfish.js/blob/ddugovic/Copying.txt)): `js/stockfish.*`
 
